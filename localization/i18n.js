@@ -439,6 +439,8 @@
             ["{{ getActionMode() }}", "{{ $plt(getActionMode()) }}"],
             ["{{ getThemeName() }}", "{{ $plt(getThemeName()) }}"],
             ["{{ getNotationName() }}", "{{ $plt(getNotationName()) }}"],
+            ["{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}}", "{{ $plt(MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]) }}"],
+            ["{{ player.notation }}", "{{ $plt(player.notation) }}"],
             ["Offline Prod: ", "离线产出："],
             ["Theme: ", "主题："],
             ["Show Milestones: ", "显示里程碑："],
