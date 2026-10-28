@@ -108,7 +108,8 @@
     }
     // 「id 形态但其实是显示名」白名单：该 token 出现在某条词典 key 里，
     //   ① 该 key 的译文完全译出（剥掉标签/标点短横线后不含 '-'），或
-    //   ② 译文里原样保留了该 token（有意保留英文的术语）
+    //   ② 译文里原样保留了该 token（有意保留英文的术语），或
+    //   ③ 译文含中文（如 Ribose-Phosphate → 核糖-磷酸，中文里的连字符不是 id 形态）
     var ID_SAFE = (function () {
         var safe = {};
         function harvest(k, v) {
@@ -117,9 +118,10 @@
             var m = String(k).match(ID_SCAN);
             if (!m) return;
             var cleanOk = stripPunctDash(clean).indexOf("-") < 0;
+            var hasCn = /[\u4e00-\u9fa5]/.test(clean);
             for (var i = 0; i < m.length; i++) {
                 var tok = m[i];
-                if (cleanOk || clean.indexOf(tok) >= 0) safe[tok] = 1;
+                if (cleanOk || hasCn || clean.indexOf(tok) >= 0) safe[tok] = 1;
             }
         }
         for (var k in exact) harvest(k, exact[k]);
