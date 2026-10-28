@@ -146,7 +146,9 @@
         var out;
         if (Object.prototype.hasOwnProperty.call(exact, str)) {
             var ev = exact[str];
-            out = (idShape(str) && typeof ev === "string" && ev.indexOf("-") >= 0) ? str : ev;
+            // id 形态保护只针对「译文仍是纯英文 id」的情况；译文含中文说明这是
+            // 带连字符的显示名（如成就名 Cr0wV1d-19 → 致命鸦群病毒-19），应照译。
+            out = (idShape(str) && typeof ev === "string" && !/[\u4e00-\u9fa5]/.test(ev) && ev.indexOf("-") >= 0) ? str : ev;
         } else if (PROTECTED[str] === 1) {
             // 模板补丁的产物（如「The Prestige Tree 由 Jacorb 与 Aarex 制作」）：
             // 里面的英文专名不能再被子串词条改写

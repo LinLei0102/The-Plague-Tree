@@ -4,7 +4,7 @@
 //  由 tools/build_dict.js 从 tools/parts/*.json 合并生成，请勿手工编辑。
 //  exact    ：整串精确匹配（层数据里的静态文案、完整句子）
 //  fragment ：子串替换（动态拼串的静态片段、标签内文字）
-//  词条数：exact 3333 + fragment 1845
+//  词条数：exact 3333 + fragment 1851
 // ============================================================================
 window.PLT_I18N = {"zh-CN": {
   exact: {
@@ -4565,8 +4565,14 @@ window.PLT_I18N = {"zh-CN": {
   "Bet Amount:f<sup>":"赌注金额：f<sup>",
   "Bet Payouts:<br>Red/Black - ":"下注赔付：<br>红/黑 - ",
   "Bet: <h2 style='color:":"赌注：<h2 style='color:",
+  "boost":"增益",
+  "Boost":"增益",
   "booster":"加强针",
   "boosters":"加强针",
+  "boosting":"增益",
+  "Boosting":"增益",
+  "boosts":"增益",
+  "Boosts":"增益",
   "Buy max Deadlier Mutant buyables, double LaBas and Deadlier Mutant gain and triple it at ":"购买最大量更致命突变体可购买项，使 LaBas 和更致命突变体产出翻倍，并在以下情况下三倍：在 ",
   "buyable":"可购买项",
   "buyables":"可购买项",
