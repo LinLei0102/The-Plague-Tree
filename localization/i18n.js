@@ -464,9 +464,10 @@
             ["?\"HIDDEN\":\"SHOWN\"", "?\"隐藏\":\"显示\""],
             ["?\"ALWAYS\":\"AUTO\"", "?\"总是\":\"自动\""],
             // 语言切换按钮：设置页没有可挂载的容器 id，只能改模板末尾的 </table>
+            // 用 %LANG% 占位符，按钮文字随当前语言自动切换（中英两种模式都要有这个按钮）
             ["</table>",
                 "<tr><td colspan=\"3\"><button class=\"opt\" onclick=\"PLTI18N.toggle()\">" +
-                "<span>语言：中文（点此切换 English）</span></button></td></tr></table>"]
+                "<span>%LANG%</span></button></td></tr></table>"]
         ],
         "info-tab": [
             ["Made by ", "作者："],
@@ -493,13 +494,34 @@
 
     function patchTemplate(name, tpl) {
         var rules = TEMPLATE_PATCH[name];
-        if (tpl.indexOf("%LANG%") >= 0) {
-            tpl = tpl.split("%LANG%").join(ENABLED ? "语言：中文（点此切换 English）" : "Language: English (click for 中文)");
-        }
         if (rules) {
             for (var i = 0; i < rules.length; i++) {
                 tpl = tpl.split(rules[i][0]).join(rules[i][1]);
             }
+        }
+        // %LANG% 占位符在 rules 应用之后才可能出现（如 options-tab 的语言按钮），
+        // 所以必须放在 rules 之后替换
+        if (tpl.indexOf("%LANG%") >= 0) {
+            tpl = tpl.split("%LANG%").join(ENABLED ? "语言：中文（点此切换 English）" : "Language: English (click for 中文)");
+        }
+        return tpl;
+    }
+
+    // 语言切换按钮需要「中英两种模式」都注入（否则切到英文后找不到切回中文的入口）。
+    // 只对 options-tab 应用语言按钮补丁，其余翻译补丁仍仅在中文模式生效。
+    function patchLangButton(name, tpl) {
+        if (name !== "options-tab") return tpl;
+        var rules = TEMPLATE_PATCH["options-tab"];
+        if (!rules) return tpl;
+        for (var i = 0; i < rules.length; i++) {
+            // 只应用含 %LANG% 或语言按钮的那条规则
+            if (rules[i][1].indexOf("%LANG%") >= 0 || rules[i][0] === "</table>") {
+                tpl = tpl.split(rules[i][0]).join(rules[i][1]);
+            }
+        }
+        // %LANG% 占位符替换
+        if (tpl.indexOf("%LANG%") >= 0) {
+            tpl = tpl.split("%LANG%").join(ENABLED ? "语言：中文（点此切换 English）" : "Language: English (click for 中文)");
         }
         return tpl;
     }
@@ -508,8 +530,15 @@
         var origComponent = window.Vue.component;
         window.Vue.component = function (name, options) {
             // 注意：Vue.component(name) 也是取值方式，此时 options 为 undefined
-            if (typeof name === "string" && options && typeof options.template === "string" && ENABLED) {
-                try { options.template = patchTemplate(name, options.template); }
+            if (typeof name === "string" && options && typeof options.template === "string") {
+                try {
+                    if (ENABLED) {
+                        options.template = patchTemplate(name, options.template);
+                    } else {
+                        // 英文模式：仅注入语言切换按钮（其余翻译补丁跳过）
+                        options.template = patchLangButton(name, options.template);
+                    }
+                }
                 catch (e) { console.warn("[PLTI18N] template patch '" + name + "' failed", e); }
             }
             return origComponent.apply(this, arguments);
@@ -643,8 +672,9 @@
         // 但内容由页面决定，所以可以本地化 —— 在游戏加载完成后接管一次。
         applyTitle();
         startDomHook();
-        injectLanguageButton();
-        setInterval(function () { hookRuntime(); injectLanguageButton(); applyTitle(); }, 500);
+        // 语言按钮已通过 options-tab 模板补丁（中英两种模式都注入）实现，
+        // 不再走 DOM 注入，避免重复按钮。
+        setInterval(function () { hookRuntime(); applyTitle(); }, 500);
     }
 
     if (document.readyState === "loading") {
