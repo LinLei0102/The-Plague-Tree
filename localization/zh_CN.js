@@ -4,7 +4,7 @@
 //  由 tools/build_dict.js 从 tools/parts/*.json 合并生成，请勿手工编辑。
 //  exact    ：整串精确匹配（层数据里的静态文案、完整句子）
 //  fragment ：子串替换（动态拼串的静态片段、标签内文字）
-//  词条数：exact 3333 + fragment 1864
+//  词条数：exact 3333 + fragment 1875
 // ============================================================================
 window.PLT_I18N = {"zh-CN": {
   exact: {
@@ -3894,6 +3894,7 @@ window.PLT_I18N = {"zh-CN": {
   " to CRNA exp per Corona Mutation.<br>":" 至 CRNA 指数，每个冠状病毒变异。<br>",
   " to PrP base, slog and exponent":" 对 PrP 基础、slog 和指数",
   " to uncoating power effect exponent":" 至脱壳强度效果指数",
+  " to unlock":" 以解锁",
   " to write down your cases.":" 来记下你的病例。",
   " total casualty":" 总伤亡",
   " Total CTNA (10)":" 总 CTNA (10)",
@@ -4721,6 +4722,7 @@ window.PLT_I18N = {"zh-CN": {
   "Green Lose Streak:":"绿色连败：",
   "Green Win Streak:":"绿色连胜：",
   "Have anti-distance exceed distance. Reward: 200 AP, distance boosts anti-distance gain, anti-distance effects^1.01.<br>Currently: ":"使反社交疏离超过社交疏离。奖励：200 成就点数，社交疏离增益反社交疏离产出，反社交疏离效果^1.01。<br>当前： ",
+  "I am a button!":"我是一个按钮！",
   "If every 10 in the cases power tower were 1 centimeter tall, the power tower would be ":"如果病例幂塔中的每个 10 都有 1 厘米高，那么这个幂塔将会是 ",
   "If every case were the size of SARS-VoC-3, and SARS-VoC-3 is ":"如果每个病例都是SARS-VoC-3的大小，且SARS-VoC-3是 ",
   "If every case were the size of SARS-VoC-3, and SARS-VoC-3 is 1 Planck Length in diameter, you would have enough to make ":"如果每个病例都有 SARS-VoC-3 那么大，而 SARS-VoC-3 直径为 1 普朗克长度，那么你所拥有的就足以构成 ",
@@ -4971,6 +4973,8 @@ window.PLT_I18N = {"zh-CN": {
   "Raise unvaxxed severity gain to ^(1+":"将未接种严重性产出提升至 ^(1+",
   "Raise unvaxxed tRNA effect, ":"提升未接种 tRNA 效果， ",
   "Raise unvaxxed uncoater base to ":"将未接种脱壳者基础提升至 ",
+  "reach":"达到",
+  "Reach":"达到",
   "Reach ":"达到 ",
   "Reduce 'Max All' deadly crow buyables cooldown by ":"将'全部最大'致命鸦群可购买项冷却减少 ",
   "Reduce 'Max All' deadly mutant buyables cooldown by ":"将'全部最大'致命突变体可购买项冷却减少 ",
@@ -5056,6 +5060,7 @@ window.PLT_I18N = {"zh-CN": {
   "Time is dilated. Time Speed is ^":"时间被膨胀。时间速度为 ^",
   "Time speed boosts base anti-distance gain.<br>Currently: ":"时间速度增益基础反距离产出。<br>当前： ",
   "times":"倍",
+  "to unlock":"以解锁",
   "Total cases gain with exponents (^":"带指数的总计病例产出 (^",
   "Total cases gain: ":"总病例产出： ",
   "UBV":"未加强病毒",
@@ -5079,12 +5084,18 @@ window.PLT_I18N = {"zh-CN": {
   "Uncoaters boost infection power gain.<br>Currently: ":"脱壳者增益感染力量产出。<br>当前： ",
   "Uncoating power boosts base gain cap exponent, 'Unsoftcap' base slog+0.15.<br>Currently: ":"脱壳威力增益基础产出上限指数，'Unsoftcap' 基础 slog+0.15。<br>当前： ",
   "Uncoating power multiplies 'Severe Tiredness' exponent at log10(x)/10+1 effect.<br>Currently: ":"脱壳威力以 log10(x)/10+1 效果使 '严重乏力' 指数相乘。<br>当前： ",
+  "unlock":"解锁",
+  "Unlock":"解锁",
   "Unlock 'Max All' deadly mutation reward power buyables, UnBoosted Virus effect dilation+0.134 at ":"解锁 'Max All' 致命变异奖励威力可购买项，未加强病毒效果扩张+0.134，在 ",
   "Unlock 'Max All' unvaxxed tRNA buyables, 'UnRecover' cooldown is ":"解锁'全部最大'未接种tRNA可购买项，'UnRecover'冷却时间为 ",
   "Unlock a CorVid Buyable, Bought CorVids boost 'MMNA Boost' base, exps, and 'Upgraded Log', After exp softcap is weaker.<br>Currently: ":"解锁一个 CorVid 可购买项，已购买 CorVid 增益 'MMNA 增益' 基础、指数和 '升级对数'，After 指数软上限更弱。<br>当前： ",
   "Unlock a new Dimension, and multiply fatality dimensions by":"解锁一个新维度，并将致死性维度乘以",
   "Unlock Anti-Maskers, CRNA exponent boosts CorVid gain.<br>Currently: ":"解锁反口罩者，CRNA 指数增益 CorVid 产出。<br>当前： ",
   "Unlock CorVids, Milestones Boost 'Upgraded Log', CRNA and CTNA exp+0.1/upgrade/milestone, set CTNA gain to 10<sup>9,999,999,998.5</sup> at ":"解锁 CorVid，里程碑增益 '升级对数'，CRNA 和 CTNA 指数 +0.1/升级/里程碑，将 CTNA 产出设为 10<sup>9,999,999,998.5</sup>，在 ",
+  "unlocked":"已解锁",
+  "Unlocked":"已解锁",
+  "unlocks":"解锁",
+  "Unlocks":"解锁",
   "Unquarantined cases boost RNA gain, 'Unsoftcap' slog+0.05.<br>Currently: ":"未隔离病例增益 RNA 产出，'Unsoftcap' slog+0.05。<br>当前： ",
   "Unquarantined cases boost uncoated enzyme gain.<br>Currently: ":"未隔离病例增益未包膜酶产出。<br>当前： ",
   "Unva":"未接种",

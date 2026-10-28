@@ -389,6 +389,12 @@
         "tab-buttons": [
             [">{{tab}}</button>", ">{{data[tab].title ? data[tab].title : tab}}</button>"]
         ],
+        // 树节点锁定提示 / 按钮提示（tree-node 模板里的静态英文片段）
+        "tree-node": [
+            ["'Reach ' + ", "'达到 ' + "],
+            ["' to unlock (You have '", "' 以解锁（你拥有 '"],
+            ["'I am a button!'", "'我是一个按钮！'"]
+        ],
         // 顶部信息条（overlay-head 模板里的静态英文）
         "overlay-head": [
             ["You have ", "你拥有 "],
