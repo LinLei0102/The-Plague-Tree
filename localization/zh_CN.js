@@ -4,7 +4,7 @@
 //  由 tools/build_dict.js 从 tools/parts/*.json 合并生成，请勿手工编辑。
 //  exact    ：整串精确匹配（层数据里的静态文案、完整句子）
 //  fragment ：子串替换（动态拼串的静态片段、标签内文字）
-//  词条数：exact 3333 + fragment 1960
+//  词条数：exact 3333 + fragment 1962
 // ============================================================================
 window.PLT_I18N = {"zh-CN": {
   exact: {
@@ -105,7 +105,7 @@ window.PLT_I18N = {"zh-CN": {
   "'Distress' x1.5, 'Adversity Gain' cost exp is 1.12, Anti-Vax eff beyond 1F70 is slog^10.":"'Distress' x1.5，'逆境产出' 花费指数为 1.12，超过 1F70 的 Anti-Vax 效果为 slog^10。",
   "'DNA' boosts cases.":"“DNA”增益病例。",
   "'DNA' is stronger based on cases":"“DNA”基于病例而更强",
-  "'Drug Resistance' is stronger based on replicators and make it add and multiply.":"'Drug Resistance' 基于复制体而更强，并使其同时相加和相乘。",
+  "'Drug Resistance' is stronger based on replicators and make it add and multiply.":"'耐药性' 基于复制体而更强，并使其同时相加和相乘。",
   "'Enzyme Boost' softcap is weaker, 'ProBase' and 'UnProBase'^1.3, 'UnRecover' eff*20/3.":"'酶增益' 软上限更弱，'ProBase' 和 'UnProBase'^1.3，'UnRecover' 效果*20/3。",
   "'Enzyme Power' base+0.09, mutation scaling/1.1.":"'酶力量'基础+0.09，变异缩放/1.1。",
   "'Fast Replicants' and 'Pathogen Replicants' cost exp-0.01, unlock a Protein type.":"'快速复制人' 和 '病原体复制人' 花费指数-0.01，解锁一种蛋白质类型。",
@@ -144,7 +144,7 @@ window.PLT_I18N = {"zh-CN": {
   "'Phosphatom' effect^1.4.":"“Phosphatom”效果^1.4。",
   "'Prion Exponent' and 'Fatality Exponent' base^1.1.":"'朊病毒指数'和'致死性指数'基础^1.1。",
   "'Prion Multiplier'<sup>2</sup>/1e7 adds to its base, base Antifolded protein gain*1.1.":"'朊病毒倍率'<sup>2</sup>/1e7 增加其基础，基础抗折叠蛋白质产出*1.1。",
-  "'Resistance' and 'Environmental Hardening' is stronger based on infectivity.":"'Resistance' 和 'Environmental Hardening' 基于传染性而更强。",
+  "'Resistance' and 'Environmental Hardening' is stronger based on infectivity.":"'抗性' 和 '环境硬化' 基于传染性而更强。",
   "'Self Boost' is stronger based on replicators":"'自我增益'基于复制体更强",
   "'Self Boost' is stronger based on VP.":"“自我增益”基于 病毒点数 而更强。",
   "'Severe Skin Rash'":"“严重皮疹”",
@@ -155,12 +155,12 @@ window.PLT_I18N = {"zh-CN": {
   "'Side Vaxxer' adds to 'Vaxxer Base' base, Side Effect gain x20.":"'副作用接种者'增加'接种者基础'基础，副作用产出x20。",
   "'Smell Loss' buys 10x more and buyables cost nothing.":"'嗅觉丧失'购买10倍更多且可购买项不花费任何资源。",
   "'Smell Loss' buys 2x more.":"“嗅觉丧失”购买多 2 倍。",
-  "'Susceptible' is stronger based on replicators and make it add and multiply.":"'Susceptible' 基于复制体而更强，并使其同时相加和相乘。",
+  "'Susceptible' is stronger based on replicators and make it add and multiply.":"'易感' 基于复制体而更强，并使其同时相加和相乘。",
   "'Symptom Base' gives free levels to 'Severity Gain'.":"'症状基础'为'严重性产出'提供免费等级。",
   "'Tired MMNA' effect*1.2, tRNA Mutation scaling/1.05, SARS Mutation after 6 scaling/1.12.":"'Tired MMNA' 效果*1.2，tRNA 变异缩放/1.05，6 之后的 SARS 变异缩放/1.12。",
   "'Tired MMNA' effect*1.2.":"“疲惫 MMNA”效果*1.2。",
   "'Transcription' is stronger based on uncoaters.":"'转录'基于脱壳者更强。",
-  "'Transmission' softcap starts instantly and 'Coated' and 'Disinfectant' are applied at once. Cases gain is multiplied by 5^(total challenge completions-4)":"'传播' 软上限立即开始，且 'Coated' 和 'Disinfectant' 一次性生效。病例产出乘以 5^(总挑战完成次数-4)",
+  "'Transmission' softcap starts instantly and 'Coated' and 'Disinfectant' are applied at once. Cases gain is multiplied by 5^(total challenge completions-4)":"'传播' 软上限立即开始，且 '已包被' 和 '消毒剂' 一次性生效。病例产出乘以 5^(总挑战完成次数-4)",
   "'Transmission' softcap starts later based on uncoaters and replicators.":"'传播' 软上限基于脱壳者和复制体更晚开始。",
   "'UB31' is applied after softcap, 'UB34' 2nd effect^1.25.":"'UB31'在软上限后应用，'UB34'第2效果^1.25。",
   "'UB35' exponent*100, 'UB37' exponent*10, 'UB38' exponent*2.":"'UB35'指数*100，'UB37'指数*10，'UB38'指数*2。",
@@ -900,7 +900,7 @@ window.PLT_I18N = {"zh-CN": {
   "Bought CorVids reduce Deadly Crow death rate increase.":"已购买的CorVid降低致命鸦群死亡率增长。",
   "Bought Deadly Crows after 30 divide their interval.":"30之后已购买的致命鸦群除以其间隔。",
   "Bought Deadly Crows boost their effect.":"已购买的致命鸦群增益其效果。",
-  "Bought death upgrades boost 'Fever' and unlock more symptom upgrades.":"已购买死亡升级增益 'Fever'，并解锁更多症状升级。",
+  "Bought death upgrades boost 'Fever' and unlock more symptom upgrades.":"已购买死亡升级增益 '发热'，并解锁更多症状升级。",
   "BREAKING NEWS: 1.8e308 cases of Vorona Cirus reported.":"突发新闻：报告了 1.8e308 例 Vorona Cirus 病例。",
   "Breaking news! Hevipelle has just announced that the buy max button is in fact going to be removed!":"突发新闻！Hevipelle 刚刚宣布，「购买最大」按钮实际上要被移除了！",
   "BULCKED Mutations":"BULCKED 变异",
@@ -2603,7 +2603,7 @@ window.PLT_I18N = {"zh-CN": {
   "Release":"释放",
   "Released Diseases":"释放的疾病",
   "Remote ":"远程 ",
-  "Remove 'Air Transmission' hardcap and its softcap starts later based on cases.":"移除 'Air Transmission' 硬上限，且其软上限基于病例更晚开始。",
+  "Remove 'Air Transmission' hardcap and its softcap starts later based on cases.":"移除 '空气传播' 硬上限，且其软上限基于病例更晚开始。",
   "Remove 'Enzyme Boost' softcap and multiply its base by 10, 'Atomic RNA Exp' base*2, tRNA bases*1.01, SARS Mutation sc/1.043.":"移除 '酶增益' 软上限并将其基础乘以 10，'Atomic RNA Exp' 基础*2，tRNA 基础*1.01，SARS 变异缩放/1.043。",
   "Remove 'Self Booster' softcap.":"移除“自我加强针”软上限。",
   "Remove cas. lim.,its form. is better,it boosts CV gain,RBs reset nothing.":"移除 cas 限制，其公式更好，它增益 CV 产出，RB 不重置任何东西。",
@@ -3108,7 +3108,7 @@ window.PLT_I18N = {"zh-CN": {
   "Unlock Severe Symptoms.":"解锁严重症状。",
   "Unlock symptom challenges.":"解锁症状挑战。",
   "Unlock uncoater challenges.":"解锁脱壳者挑战。",
-  "Unlock Unvaxxed Pathogens, Previous milestone is raised to 5, 'Coated' reward is raised and dilated to 1.1, 'Synergy' 2nd effect is raised to 10, 2nd effect is raised to 5 and dilated to 3.":"解锁未接种病原体，前一里程碑提升至 5，'Coated' 奖励被提升并扩张至 1.1，'Synergy' 第二效果提升至 10，第二效果提升至 5 并扩张至 3。",
+  "Unlock Unvaxxed Pathogens, Previous milestone is raised to 5, 'Coated' reward is raised and dilated to 1.1, 'Synergy' 2nd effect is raised to 10, 2nd effect is raised to 5 and dilated to 3.":"解锁未接种病原体，前一里程碑提升至 5，'已包被' 奖励被提升并扩张至 1.1，'协同' 第二效果提升至 10，第二效果提升至 5 并扩张至 3。",
   "Unlock Vaccination, 'Adv Gain' cost exp is 1.1, Adversity eff exp+0.3.":"解锁疫苗接种，'Adv Gain' 花费指数为 1.1，逆境效果指数+0.3。",
   "UnLog":"未对数",
   "UnLogged":"未取对数",
@@ -3505,6 +3505,8 @@ window.PLT_I18N = {"zh-CN": {
   " and effective amount by ":" 且有效数量乘以 ",
   " and effects by ^":" 并且效果提升 ^",
   " and Even Payout by ":" 且等额赔付乘以 ",
+  " and increase 'Infection' base by ":" 并增加「感染」基础 ",
+  " and increases 'Infection' base by ":" 并增加「感染」基础 ",
   " and multiply mRNA gain by ":" 且将 mRNA 产出乘以 ",
   " and multiply their birth rate by ":" 并将其出生率乘以 ",
   " and multiply UnBoosted Virus gain base by ":" 并将未加强病毒产出基础乘以 ",
