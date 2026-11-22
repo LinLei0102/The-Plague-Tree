@@ -59,6 +59,24 @@
         if (Object.prototype.hasOwnProperty.call(fragment, _plain)) continue;
         if (Object.prototype.hasOwnProperty.call(strippedExact, _plain)) continue;
         strippedExact[_plain] = _stripTags(String(exact[_k])).trim();
+        // Vue 会按 <br> 把整句拆成多个文本节点。例如
+        //   "<br>You are past endgame,<br>and the game might not be balanced here."
+        // 在 DOM 里是 "You are past endgame," 与 "and the game might not be balanced here."
+        // 两段；只派生「整句去标签版」仍然无法命中，后半句会退化成 fragment，
+        // 变成「和 the game might not be balanced here.」。这里按 <br> 逐段派生。
+        var _kLines = String(_k).split(/<br\s*\/?>/i);
+        var _vLines = String(exact[_k]).split(/<br\s*\/?>/i);
+        if (_kLines.length > 1 && _kLines.length === _vLines.length) {
+            for (var _li = 0; _li < _kLines.length; _li++) {
+                var _ls = _stripTags(_kLines[_li]).trim();
+                var _lt = _stripTags(_vLines[_li]).trim();
+                if (_ls.length < 4 || !_lt || _ls === _lt) continue;
+                if (Object.prototype.hasOwnProperty.call(exact, _ls)) continue;
+                if (Object.prototype.hasOwnProperty.call(fragment, _ls)) continue;
+                if (Object.prototype.hasOwnProperty.call(strippedExact, _ls)) continue;
+                strippedExact[_ls] = _lt;
+            }
+        }
     }
 
     // ------------------------------------------------------------------
