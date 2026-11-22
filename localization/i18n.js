@@ -37,6 +37,31 @@
     var fragment = active.fragment || {};
     var ENABLED = (lang === "zh-CN");
 
+    // P2 层级树上的层级名按用户要求保留英文原文。这里做两层保护：
+    //   1) 这些精确字符串永不进入 exact/fragment 翻译；
+    //   2) 若旧译文已经作为文本节点写进树节点标签，DOM 兜底观察器负责还原。
+    var RAW_TREE_LAYERS = {
+        "Unvaxxed Layers": 1,
+        "unvaxxed viruses": 1,
+        "unvaxxed infectivity": 1,
+        "unvaxxed replicators": 1,
+        "unvaxxed prions": 1,
+        "unvaxxed uncoaters": 1,
+        "unvaxxed symptoms": 1,
+        "unvaxxed deaths": 1
+    };
+    var TREE_LABEL_RESTORE = {
+        "未接种层": "Unvaxxed Layers",
+        "未接种病毒": "unvaxxed viruses",
+        "未接种传染性": "unvaxxed infectivity",
+        "未接种复制体": "unvaxxed replicators",
+        "未接种复制人": "unvaxxed replicators",
+        "未接种朊病毒": "unvaxxed prions",
+        "未接种脱壳者": "unvaxxed uncoaters",
+        "未接种症状": "unvaxxed symptoms",
+        "未接种死亡": "unvaxxed deaths"
+    };
+
     // ------------------------------------------------------------------
     // 0. 带 HTML 标签的整句 key 在 DOM 里退化问题：
     //    词典 key 形如 "<span style='...'>TEXT</span>"，但 Vue 渲染 + DOM 观察器
@@ -187,6 +212,7 @@
         if (!ENABLED || typeof str !== "string" || str.length < 2) return str;
         if (SPECIAL[str] !== undefined) return SPECIAL[str];
         if (/^[A-Za-z0-9]$/.test(str)) return str;
+        if (RAW_TREE_LAYERS[str] === 1) return str;          // P2 层级树名称保留原文
         if (OUTPUTS[str] === 1) return str;                 // 已是译文，幂等返回
         if (cache.has(str)) return cache.get(str);
         var out;
@@ -606,9 +632,27 @@
     // ------------------------------------------------------------------
     var SKIP_TAGS = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, INPUT: 1, CODE: 1, PRE: 0 };
 
+    function restoreTreeLayerLabel(node) {
+        var p = node.parentNode;
+        if (!p) return false;
+        var pc = " " + String(p.className || "") + " ";
+        var isNodeLabel = pc.indexOf(" nodeLabel ") >= 0;
+        var isTreeNodeTooltip = pc.indexOf(" tooltip ") >= 0 && p.parentNode &&
+            (" " + String(p.parentNode.className || "") + " ").indexOf(" treeNode ") >= 0;
+        if (!isNodeLabel && !isTreeNodeTooltip) return false;
+        var plain = String(node.nodeValue).trim();
+        var raw = TREE_LABEL_RESTORE[plain];
+        if (!raw) return false;
+        node.nodeValue = String(node.nodeValue).replace(plain, raw);
+        node.__pltDone = node.nodeValue;
+        return true;
+    }
+
     function translateTextNode(node) {
         var t = node.nodeValue;
-        if (!t || !/[A-Za-z]{2}/.test(t)) return;
+        if (!t) return;
+        if (restoreTreeLayerLabel(node)) return;
+        if (!/[A-Za-z]{2}/.test(t)) return;
         if (node.__pltDone === t) return;
         var zh = translate(t);
         // 源码里跨行缩进、带首尾空白的文案（index.html 的 Discord 链接、changelog 每行后跟的
