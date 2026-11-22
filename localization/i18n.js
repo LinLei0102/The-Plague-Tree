@@ -176,8 +176,10 @@
             }
             if (guards.length) out = out.replace(/\u0001(\d+)\u0001/g, function (_, i) { return guards[+i]; });
         }
-        // 时间单位：数字前缀限定，避免误伤普通英文（ms 必须排在 s 之前）
+        // 数字紧贴的复数资源词：format(value) + pluralize() 拼接时无空格（如 1.7640F5recoveries），
+        // 纯单词 fragment 的 \b 在「数字|字母」之间不成立，故在此用数字后缀锚定补译。
         out = out
+            .replace(/([0-9A-Za-z])recoveries\b/g, "$1康复")
             .replace(/(\d+(?:\.\d+)?)\s?ms(?![\w])/g, "$1毫秒")
             .replace(/(\d+(?:\.\d+)?)\s?y(?![\w])/g, "$1年")
             .replace(/(\d+(?:\.\d+)?)\s?d(?![\w])/g, "$1天")
