@@ -38,6 +38,30 @@
     var ENABLED = (lang === "zh-CN");
 
     // ------------------------------------------------------------------
+    // 0. 带 HTML 标签的整句 key 在 DOM 里退化问题：
+    //    词典 key 形如 "<span style='...'>TEXT</span>"，但 Vue 渲染 + DOM 观察器
+    //    拿到的是去掉标签后的纯文本节点 "TEXT"，exact 整串匹配必然失败，
+    //    于是整句退化为 fragment 逐词替换，产出半吊子译文（英文逗号 / soft. start /
+    //    Shift buys 等残留）。这里从带标签的 exact 派生「去标签版」查表，
+    //    让纯文本节点也能命中完整译文。
+    //    - 仅在 key 真正含标签、且去标签后仍有足够文本时派生
+    //    - 不覆盖已有的 exact / fragment key（它们优先）
+    //    - 只影响 exact 命中路径，fragment 逻辑与其它翻译完全不动
+    // ------------------------------------------------------------------
+    function _stripTags(s) { return s.replace(/<[^>]*>/g, ""); }
+    var strippedExact = {};
+    for (var _k in exact) {
+        if (!/<[a-z]/i.test(_k)) continue;
+        var _plain = _stripTags(_k).trim();
+        if (_plain.length < 4) continue;
+        if (_plain === _k) continue;
+        if (Object.prototype.hasOwnProperty.call(exact, _plain)) continue;
+        if (Object.prototype.hasOwnProperty.call(fragment, _plain)) continue;
+        if (Object.prototype.hasOwnProperty.call(strippedExact, _plain)) continue;
+        strippedExact[_plain] = _stripTags(String(exact[_k])).trim();
+    }
+
+    // ------------------------------------------------------------------
     // 1. 词典匹配器：所有 key 按长度降序合成一条正则，一次替换
     //    - 纯英文单词键自动加 \b 边界
     //    - 追加「HTML 标签」分支，整段标签原样保留（属性名/样式/路径不被误译）
@@ -91,6 +115,8 @@
         var s = {};
         for (var k in exact) if (typeof exact[k] === "string") s[exact[k]] = 1;
         for (var k2 in fragment) if (typeof fragment[k2] === "string") s[fragment[k2]] = 1;
+        // 去标签派生的译文也要幂等，避免「已翻好的纯文本节点」再被子串词条改写
+        for (var k3 in strippedExact) if (typeof strippedExact[k3] === "string") s[strippedExact[k3]] = 1;
         return s;
     })();
 
@@ -151,6 +177,9 @@
             // id 形态保护只针对「译文仍是纯英文 id」的情况；译文含中文说明这是
             // 带连字符的显示名（如成就名 Cr0wV1d-19 → 致命鸦群病毒-19），应照译。
             out = (idShape(str) && typeof ev === "string" && !/[\u4e00-\u9fa5]/.test(ev) && ev.indexOf("-") >= 0) ? str : ev;
+        } else if (str.indexOf("<") < 0 && Object.prototype.hasOwnProperty.call(strippedExact, str)) {
+            // DOM 文本节点是去标签纯文本，命中带标签 exact 的去标签派生表
+            out = strippedExact[str];
         } else if (PROTECTED[str] === 1) {
             // 模板补丁的产物（如「The Prestige Tree 由 Jacorb 与 Aarex 制作」）：
             // 里面的英文专名不能再被子串词条改写
@@ -669,6 +698,20 @@
     }
 
     function boot() {
+        // 关键补翻译：i18n.js 在 index.html 末尾加载，此时 layers.js 里的 addLayer(...)
+        // 早已执行完，第 7 节的 addLayer hook 安装得太晚、对已注册层完全无效。
+        // 结果所有层的静态描述（含带 HTML 标签的整句 exact）都没翻译，只能靠 DOM
+        // 观察器逐词 fragment 替换，产出半吊子译文（英文标点 / soft. start / Shift buys 残留）。
+        // 这里在所有层注册完毕后补做一次层数据翻译：exact 整句命中 → 完整中文译文，
+        // 之后 Vue 渲染进 DOM 的就是中文，不再退化为 fragment。
+        try {
+            if (typeof window.layers === "object" && window.layers) {
+                for (var _ln in window.layers) {
+                    try { translateLayerData(window.layers[_ln]); }
+                    catch (e) { /* 单层失败不影响其它层 */ }
+                }
+            }
+        } catch (e) { /* ignore */ }
         hookRuntime();
         hookDialogs();
         // 标签页标题：原版 index.html 没有 <title>，且 js/utils.js:343 会写
